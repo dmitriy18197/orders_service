@@ -67,6 +67,19 @@ class ApiOrdersTest {
     }
 
     @Test
+    void testGetByStatus() throws Exception {
+        Order inProgressOrder = repository.save(Instant.now(), Status.IN_PROGRESS);
+        Order rescheduleOrder = repository.save(Instant.now(), Status.RESCHEDULE);
+
+        mockMvc.perform(get("/orders/filter?status=RESCHEDULE"))
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$.[0].id").value(rescheduleOrder.getId()))
+                .andExpect(jsonPath("$.[0].created").isNotEmpty())
+                .andExpect(jsonPath("$.[0].status").value("RESCHEDULE"))
+                .andExpect(jsonPath("$.[1]").doesNotExist());
+    }
+
+    @Test
     void testPost() throws Exception {
         mockMvc.perform(post("/orders"))
                 .andExpect(status().is(200))

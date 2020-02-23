@@ -31,6 +31,13 @@ public class OrdersMapperImpl implements OrdersMapper {
     }
 
     @Override
+    public List<Order> selectByStatus(Status status) {
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            return getMapper(sqlSession).selectByStatus(status);
+        }
+    }
+
+    @Override
     public List<Order> searchById(String pattern) {
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             return getMapper(sqlSession).searchById(pattern);

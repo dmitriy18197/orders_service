@@ -13,10 +13,11 @@ public interface OrdersRepository {
 
     Optional<Order> findById(Long id);
 
+    List<Order> findByStatus(Status status);
+
     List<Order> searchById(Long id);
 
     Order save(Instant created, Status status);
 
     void updateOrderStatus(Long id, Status status);
-
 }

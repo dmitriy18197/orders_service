@@ -27,6 +27,11 @@ public class OrdersRepositoryImpl implements OrdersRepository {
     }
 
     @Override
+    public List<Order> findByStatus(Status status) {
+        return ordersMapper.selectByStatus(status);
+    }
+
+    @Override
     public List<Order> searchById(Long id) {
         String pattern = createSearchPattern(id);
         return ordersMapper.searchById(pattern);

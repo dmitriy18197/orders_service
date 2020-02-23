@@ -26,6 +26,11 @@ public class OrdersController {
         return ordersRepository.searchById(id);
     }
 
+    @GetMapping("/orders/filter")
+    public List<Order> getByStatus(@RequestParam String status) {
+        return ordersRepository.findByStatus(Status.fromString(status));
+    }
+
     @GetMapping("/orders/{id}")
     public ResponseEntity<Order> getById(@PathVariable Long id) {
         return ordersRepository.findById(id)

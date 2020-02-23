@@ -17,6 +17,9 @@ public interface OrdersMapper {
     @Select("select * from ORDERS where ID=#{id}")
     Order selectById(Long id);
 
+    @Select("select * from ORDERS where STATUS=#{status}")
+    List<Order> selectByStatus(Status status);
+
     @Select("select * from ORDERS where ID::text like #{pattern}")
     List<Order> searchById(String pattern);
 
@@ -26,5 +29,4 @@ public interface OrdersMapper {
 
     @Update("update ORDERS set STATUS=#{status} where ID=#{id}")
     void updateOrderStatus(Long id, Status status);
-
 }
